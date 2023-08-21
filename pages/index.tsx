@@ -15,9 +15,9 @@ const Home: NextPage = () => {
           <div className={styles.heroBackground}>
             <div className={styles.heroBackgroundInner}>
               <Image
-                src="/hero-gradient.png"
-                width={1390}
-                height={1390}
+                src=""
+                width={1280}
+                height={1080}
                 alt="Background gradient from red to blue"
                 quality={100}
                 className={styles.gradient}
@@ -25,10 +25,11 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className={styles.heroAssetFrame}>
+           
             <Image
-              src="/hero-asset.png"
-              width={860}
-              height={540}
+              src="/hero-asset.gif"
+              width={800}
+              height={500}
               alt="Hero asset, NFT marketplace"
               quality={100}
               className={styles.heroAsset}
@@ -38,33 +39,32 @@ const Home: NextPage = () => {
             <div className={styles.heroBody}>
               <h1 className={styles.heroTitle}>
                 <span className={styles.heroTitleGradient}>
-                  Build NFT Marketplaces
+                  <i>Collect F3 Warriors!</i>
                 </span>
                 <br />
-                faster than ever.
+                Gaming Redefined.
               </h1>
               <p className={styles.heroSubtitle}>
                 <Link
                   className={styles.link}
-                  href="https://thirdweb.com"
+                  href="https://godsofgaming.games"
                   target="_blank"
                 >
-                  thirdweb
+                  Gods Of Gaming 
                 </Link>{" "}
-                gives you the tools you need to create audited, performant, and
-                flexible NFT marketplaces in <b>hours</b>, <i>not months</i>.
+                Presents: <i>F3 Warriors—Where Deities and Heroes Collide!</i>.
               </p>
 
               <div className={styles.heroCtaContainer}>
                 <Link className={styles.heroCta} href="/buy">
-                  Get Started
+                  <b>Learn More</b>
                 </Link>
                 <Link
                   className={styles.secondaryCta}
-                  href="https://github.com/thirdweb-example/marketplace-v3"
+                  href="https://gods-of-gaming.gitbook.io/gods-of-gaming-whitepaper/the-numbers/revenue-sharing-investing-in-the-gods-of-gaming-ecosystem/f3-warriors-revenue-sharing-season-1-exclusivity"
                   target="_blank"
                 >
-                  GitHub
+                  Whitepaper
                 </Link>
               </div>
             </div>

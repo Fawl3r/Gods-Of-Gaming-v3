@@ -360,10 +360,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const sdk = new ThirdwebSDK(NETWORK, {
     secretKey: process.env.TW_SECRET_KEY,
   });
-
   const contract = await sdk.getContract(NFT_COLLECTION_ADDRESS);
 
-  const nft = await contract.erc721.get(tokenId);
+  const nft = await contract.erc1155.get(tokenId);
 
   let contractMetadata;
 
@@ -381,13 +380,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const sdk = new ThirdwebSDK(NETWORK, {
-    secretKey: process.env.TW_SECRET_KEY,
-  });
+  const sdk = new ThirdwebSDK(NETWORK);
 
   const contract = await sdk.getContract(NFT_COLLECTION_ADDRESS);
 
-  const nfts = await contract.erc721.getAll();
+  const nfts = await contract.erc1155.getAll();
 
   const paths = nfts.map((nft) => {
     return {
