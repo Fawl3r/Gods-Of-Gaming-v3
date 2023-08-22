@@ -11,7 +11,7 @@ export default function Buy() {
     contract,
     {
       // For example, to only return the first 500 NFTs in the collection
-      count: 500,
+      count: 1000,
       start: 0,
     }
   );
