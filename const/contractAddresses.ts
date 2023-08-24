@@ -15,3 +15,5 @@ export const NFT_COLLECTION_ADDRESS = "0xB8a33200A4a09d8c5F5313D6a19A9609B916479
 // (Optional) Set up the URL of where users can view transactions on
 // For example, below, we use Mumbai.polygonscan to view transactions on the Mumbai testnet.
 export const ETHERSCAN_URL = "https://https://bscscan.com/";
+
+
