@@ -18,7 +18,7 @@ export default function Buy() {
 
   return (
     <Container maxWidth="lg">
-      <h1>Buy NFTs</h1>
+      <h1>Buy Warrior NFTs</h1>
       <p>Browse which NFTs are available from the collection.</p>
       {
         error ? <p>Error: {(error as Error).message}</p> : 
