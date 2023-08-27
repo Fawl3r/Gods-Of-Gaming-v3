@@ -12,12 +12,13 @@
   },
   "dependencies": {
     "@thirdweb-dev/chains": "^0",
-    "@thirdweb-dev/react": "^3.14.36",
-    "@thirdweb-dev/sdk": "^3.10.55",
+    "@thirdweb-dev/react": "^3.14.37",
+    "@thirdweb-dev/sdk": "^3.10.56",
     "ethers": "5",
     "next": "^13",
     "nextjs-progressbar": "^0.0.16",
     "react": "^18.2",
+    "react-countdown": "^2.3.5",
     "react-dom": "^18.2",
     "react-hook-form": "^7.43.0",
     "react-hot-toast": "^2.4.0"
