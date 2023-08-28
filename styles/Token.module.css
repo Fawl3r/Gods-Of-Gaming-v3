@@ -295,3 +295,21 @@
   /* fill remainin width */
   width: 100% !important;
 }
+.quantityContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.quantityContainer label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.quantityContainer input {
+  width: 50px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}

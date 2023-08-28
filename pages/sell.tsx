@@ -20,6 +20,9 @@ export default function Sell() {
 
   const [selectedNft, setSelectedNft] = useState<NFTType>();
 
+  // New state variable for quantity
+  const [quantity, setQuantity] = useState(1);
+
   return (
     <Container maxWidth="lg">
       <h1>Sell Warrior NFTs</h1>
@@ -58,12 +61,18 @@ export default function Sell() {
 
           <div className={tokenPageStyles.listingContainer}>
             <p>You&rsquo;re about to list the following item for sale.</p>
-            <h1 className={tokenPageStyles.title}>
-              {selectedNft.metadata.name}
-            </h1>
-            <p className={tokenPageStyles.collectionName}>
-              Token ID #{selectedNft.metadata.id}
-            </p>
+            <h1 className={tokenPageStyles.title}>{selectedNft.metadata.name}</h1>
+            <p className={tokenPageStyles.collectionName}>Token ID #{selectedNft.metadata.id}</p>
+            {/* Quantity input */}
+            <div className={tokenPageStyles.quantityContainer}>
+              <label htmlFor="quantity">Quantity:</label>
+              <input
+                id="quantity"
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(parseInt(e.target.value))}
+              />
+            </div>
 
             <div className={tokenPageStyles.pricingContainer}>
               <SaleInfo nft={selectedNft} />
