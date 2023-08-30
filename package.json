@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@thirdweb-dev/chains": "^0",
-    "@thirdweb-dev/react": "^3.14.37",
-    "@thirdweb-dev/sdk": "^3.10.56",
+    "@thirdweb-dev/react": "^3.14.39",
+    "@thirdweb-dev/sdk": "^3.10.58",
     "ethers": "5",
     "next": "^13",
     "nextjs-progressbar": "^0.0.16",
