@@ -8,13 +8,13 @@ export default function Buy() {
   // Load all of the NFTs from the NFT Collection
   const { contract } = useContract(NFT_COLLECTION_ADDRESS);
   const { data, isLoading, error } = useNFTs(contract, {
-    count: 1000,
+    count: 100,
     start: 0,
   });
 
   // Pagination state variables
   const [currentPage, setCurrentPage] = useState(1);
-  const [nftsPerPage] = useState(10); // You can set the number of NFTs per page here
+  const [nftsPerPage] = useState(30); // You can set the number of NFTs per page here
 
   // Calculate the total number of pages
   const totalPages = data ? Math.ceil(data.length / nftsPerPage) : 0;
