@@ -14,7 +14,7 @@ export default function Buy() {
 
   // Pagination state variables
   const [currentPage, setCurrentPage] = useState(1);
-  const [nftsPerPage] = useState(30); // You can set the number of NFTs per page here
+  const [nftsPerPage] = useState(50); // You can set the number of NFTs per page here
 
   // Calculate the total number of pages
   const totalPages = data ? Math.ceil(data.length / nftsPerPage) : 0;
