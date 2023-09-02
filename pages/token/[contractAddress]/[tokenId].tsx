@@ -1,6 +1,7 @@
 import {
   MediaRenderer,
   ThirdwebNftMedia,
+  useCancelListing,
   useContract,
   useContractEvents,
   useValidDirectListings,
@@ -10,7 +11,7 @@ import {
 import React, { useState } from "react";
 import Container from "../../../components/Container/Container";
 import { GetStaticProps, GetStaticPaths } from "next";
-import { NFT, ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { ListingType, NFT, ThirdwebSDK } from "@thirdweb-dev/sdk";
 import {
   ETHERSCAN_URL,
   MARKETPLACE_ADDRESS,
@@ -42,6 +43,31 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
 
   // Connect to NFT Collection smart contract
   const { contract: nftCollection } = useContract(NFT_COLLECTION_ADDRESS);
+
+      function App() {
+        const { contract } = useContract(NFT_COLLECTION_ADDRESS, "marketplace");
+        const {
+          mutateAsync: cancelListing,
+          isLoading,
+          error,
+        } = useCancelListing(contract);
+
+
+        return (
+          <Web3Button
+            contractAddress={NFT_COLLECTION_ADDRESS}
+            action={() =>
+              cancelListing({
+                id: '{{listing_id}}',
+                type: ListingType.Direct,
+              })
+            }
+            >
+              Cancel Listing
+            </Web3Button>
+        );
+      }
+
 
   const { data: directListing, isLoading: loadingDirect } =
     useValidDirectListings(marketplace, {
