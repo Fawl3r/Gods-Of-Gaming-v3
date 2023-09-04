@@ -4,6 +4,12 @@ import Container from "../components/Container/Container";
 import NFTGrid from "../components/NFT/NFTGrid";
 import { NFT_COLLECTION_ADDRESS } from "../const/contractAddresses";
 
+// Placeholder function, replace with your actual logic
+const ValidDirectListings = (nft) => {
+  // Replace this with your own logic to determine if a listing is valid
+  return true; // for now, we assume all NFTs are valid listings
+};
+
 export default function Buy() {
   // Load all of the NFTs from the NFT Collection
   const { contract } = useContract(NFT_COLLECTION_ADDRESS);
@@ -18,14 +24,12 @@ export default function Buy() {
   const [validNfts, setValidNfts] = useState([]);
 
   useEffect(() => {
-    // Fetch all valid direct listings
-    const fetchValidListings = async () => {
-      const listings = await contract.directListings.getAllValid();
-      setValidNfts(listings);
-    };
-
-    fetchValidListings();
-  }, [contract]);
+    if (data) {
+      // Filter out invalid NFTs
+      const filteredNfts = data.filter(ValidDirectListings);
+      setValidNfts(filteredNfts);
+    }
+  }, [data]);
 
   // Calculate the total number of pages
   const totalPages = validNfts ? Math.ceil(validNfts.length / nftsPerPage) : 0;
