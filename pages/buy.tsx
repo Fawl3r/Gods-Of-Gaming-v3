@@ -21,7 +21,7 @@ export default function Buy() {
   // Pagination state variables
   const [currentPage, setCurrentPage] = useState(1);
   const [nftsPerPage] = useState(50);
-  const [validNfts, setValidNfts] = useState([]);
+  const [validNfts, setValidNfts] = useState([ValidDirectListings]);
 
   useEffect(() => {
     if (data) {
