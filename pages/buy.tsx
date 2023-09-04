@@ -1,37 +1,43 @@
 import React, { useEffect, useState } from "react";
-import { useContract, useContractRead, useNFTs } from "@thirdweb-dev/react";  // Added useContractRead
+import { useContract, useNFTs } from "@thirdweb-dev/react";
 import Container from "../components/Container/Container";
 import NFTGrid from "../components/NFT/NFTGrid";
 import { NFT_COLLECTION_ADDRESS } from "../const/contractAddresses";
 
+// Placeholder function, replace with your actual logic
+const ValidDirectListings = (nft) => {
+  // Replace this with your own logic to determine if a listing is valid
+  return true; // for now, we assume all NFTs are valid listings
+};
+
 export default function Buy() {
+  // Load all of the NFTs from the NFT Collection
   const { contract } = useContract(NFT_COLLECTION_ADDRESS);
+  const { data, isLoading, error } = useNFTs(contract, {
+    count: 1000,
+    start: 0,
+  });
 
   // Pagination state variables
   const [currentPage, setCurrentPage] = useState(1);
   const [nftsPerPage] = useState(50);
-
-  // Calculate start and end IDs for valid listings
-  const _startId = (currentPage - 1) * nftsPerPage;
-  const _endId = _startId + nftsPerPage - 1;
-
-  // Fetch valid listings using useContractRead
-  const { data: validListingsData, isLoading: validListingsLoading } = useContractRead(contract, "getAllValidListings", [_startId, _endId]);
-
-  // State for filtered NFTs (valid listings)
   const [validNfts, setValidNfts] = useState([]);
 
   useEffect(() => {
-    if (validListingsData) {
-      setValidNfts(validListingsData);
+    if (data) {
+      // Filter out invalid NFTs
+      const filteredNfts = data.filter(ValidDirectListings);
+      setValidNfts(filteredNfts);
     }
-  }, [validListingsData]);
+  }, [data]);
 
   // Calculate the total number of pages
   const totalPages = validNfts ? Math.ceil(validNfts.length / nftsPerPage) : 0;
 
   // Get the NFTs for the current page
-  const currentNfts = validNfts.slice(0, nftsPerPage); // Since validNfts are already paginated
+  const indexOfLastNft = currentPage * nftsPerPage;
+  const indexOfFirstNft = indexOfLastNft - nftsPerPage;
+  const currentNfts = validNfts.slice(indexOfFirstNft, indexOfLastNft);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -39,7 +45,11 @@ export default function Buy() {
     <Container maxWidth="lg">
       <h1>Buy Warrior NFTs</h1>
       <p>Browse which NFTs are available from the collection.</p>
-      <NFTGrid data={currentNfts} isLoading={validListingsLoading} emptyText={"Looks like there are no NFTs in this collection."} />
+      {error ? (
+        <p>Error: {(error as Error).message}</p>
+      ) : (
+        <NFTGrid data={currentNfts} isLoading={isLoading} emptyText={"Looks like there are no NFTs in this collection."} />
+      )}
 
       {/* Pagination Controls */}
       <div>
