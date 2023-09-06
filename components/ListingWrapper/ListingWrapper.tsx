@@ -100,7 +100,7 @@ export default function ListingWrapper({ listing }: Props) {
       key={nft.metadata.id}
       className={styles.nftContainerListing}
     >
-      <NFT ={nft} />
+      <NFT nft={nft} />
     </Link>
     
     <Web3Button
