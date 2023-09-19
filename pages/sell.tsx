@@ -25,11 +25,11 @@ export default function Sell() {
 
   return (
       <div className={styles.container}>
-        {/* Add ConnectWallet Button here */}
-        <div className={styles.connectWalletButton}>
+        
+    <Container maxWidth="lg">
+    <div className={styles.connectWalletButton}>
           <ConnectWallet />
         </div>
-    <Container maxWidth="lg">
       <h1>Sell Warrior NFTs</h1>
       {!selectedNft ? (
         <>
