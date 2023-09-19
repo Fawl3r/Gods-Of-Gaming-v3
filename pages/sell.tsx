@@ -1,4 +1,5 @@
 import {
+  ConnectWallet,
   ThirdwebNftMedia,
   useAddress,
   useContract,
@@ -11,6 +12,8 @@ import { NFT_COLLECTION_ADDRESS } from "../const/contractAddresses";
 import tokenPageStyles from "../styles/Token.module.css";
 import { NFT as NFTType } from "@thirdweb-dev/sdk";
 import SaleInfo from "../components/SaleInfo/SaleInfo";
+import styles from "../styles/Home.module.css";
+
 
 export default function Sell() {
   // Load all of the NFTs from the NFT Collection
@@ -21,6 +24,11 @@ export default function Sell() {
   const [selectedNft, setSelectedNft] = useState<NFTType>();
 
   return (
+      <div className={styles.container}>
+        {/* Add ConnectWallet Button here */}
+        <div className={styles.connectWalletButton}>
+          <ConnectWallet />
+        </div>
     <Container maxWidth="lg">
       <h1>Sell Warrior NFTs</h1>
       {!selectedNft ? (
@@ -72,5 +80,6 @@ export default function Sell() {
         </div>
       )}
     </Container>
+    </div> 
   );
 }
