@@ -1,9 +1,13 @@
+import {
+  ConnectWallet,
+} from "@thirdweb-dev/react";
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useContract, useValidDirectListings } from '@thirdweb-dev/react';
 import Container from '../components/Container/Container';
 import NFTGrid from '../components/NFT/NFTGrid';
 import { NFT_COLLECTION_ADDRESS } from '../const/contractAddresses';
+import styles from "../styles/Home.module.css";
 
 export default function Buy() {
   const router = useRouter();
@@ -46,7 +50,12 @@ export default function Buy() {
   };
 
   return (
+    <div className={styles.container}>
+        
     <Container maxWidth="lg">
+    <div className={styles.connectWalletButton}>
+          <ConnectWallet />
+        </div>
       <h1>Buy Warrior NFTs</h1>
 
       {/* Sort Controls */}
@@ -71,5 +80,6 @@ export default function Buy() {
         <NFTGrid data={currentNfts} isLoading={isLoading} emptyText={"Looks like there are no NFTs in this collection."} />
       )}
     </Container>
+    </div> 
   );
 }
