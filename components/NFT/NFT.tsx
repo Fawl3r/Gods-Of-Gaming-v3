@@ -1,11 +1,11 @@
 import {
-  ThirdwebNftMedia,
   useContract,
   useValidDirectListings,
   useValidEnglishAuctions,
 } from "@thirdweb-dev/react";
 import { NFT } from "@thirdweb-dev/sdk";
-import React from "react";
+import React from 'react';
+import RetryImage from './RetryImage';  // Assuming RetryImage is in the same directory; adjust the path accordingly
 import {
   MARKETPLACE_ADDRESS,
   NFT_COLLECTION_ADDRESS,
@@ -39,9 +39,10 @@ export default function NFTComponent({ nft }: Props) {
 
   return (
     <>
-      <ThirdwebNftMedia metadata={nft.metadata} className={styles.nftImage} />
+      {/* Replace ThirdwebNftMedia with RetryImage */}
+      <RetryImage src={nft.metadata.image} alt={`NFT ${nft.metadata.id}`} className={styles.nftImage} />
 
-      <p className={styles.nftTokenId}>Token ID #{nft.metadata.id}</p>
+       <p className={styles.nftTokenId}>Token ID #{nft.metadata.id}</p>
       <p className={styles.nftName}>{nft.metadata.name}</p>
 
       <div className={styles.priceContainer}>

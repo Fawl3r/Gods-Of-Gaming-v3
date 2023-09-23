@@ -9,7 +9,7 @@ import { NFT_COLLECTION_ADDRESS } from '../const/contractAddresses';
 
 const ValidDirectListings = (nft) => {
   // Replace this with your own logic to determine if a listing is valid
-  return true;
+  return nft.status !== "Not for sale";  // Replace 'status' with whatever field contains this text
 };
 
 export default function Buy() {
@@ -32,6 +32,7 @@ export default function Buy() {
     }
   }, [data]);
 
+
   const totalPages = validNfts ? Math.ceil(validNfts.length / nftsPerPage) : 0;
   const indexOfLastNft = currentPage * nftsPerPage;
   const indexOfFirstNft = indexOfLastNft - nftsPerPage;
@@ -50,6 +51,7 @@ export default function Buy() {
 
   return (
     <Container maxWidth="lg">
+      
       <h1>Buy Warrior NFTs</h1>
 
       {/* Pagination Controls */}
