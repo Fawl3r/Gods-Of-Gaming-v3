@@ -1,5 +1,5 @@
 .container {
-  width: 100%;
+  width: 75%;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;
@@ -25,10 +25,4 @@
 
 .xl {
   max-width: 1536px;
-}
-/* Add this to your CSS file */
-@media (max-width: 768px) {
-  .nftImage {
-    max-width: 200px;  /* or whatever maximum size works for you */
-  }
 }

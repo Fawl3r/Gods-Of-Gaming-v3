@@ -1,5 +1,6 @@
 
 
+
 .coverImage {
   width: 100%;
   background-color: #272a2d;
@@ -45,20 +46,24 @@
 }
 
 .activeTab {
+  
   color: rgba(255, 255, 255, 1);
   border-bottom: 2px solid #c5ba24;
   color: #C7AF45;
 }
 
 .tabContent {
-  display: none;
-  height: 0px;
+  display: grid;
+  height: 60px;
   opacity: 0;
   transition: all 0.1s linear;
 }
 
 .activeTabContent {
-  display: flex;
-  flex-direction: row;
+  display: -moz-inline-grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the minmax values to your liking */
+  gap: 10px; /* Adjust the gap value to your liking */
   opacity: 1;
 }
+
+
