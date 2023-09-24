@@ -26,3 +26,9 @@
 .xl {
   max-width: 1536px;
 }
+/* Add this to your CSS file */
+@media (max-width: 768px) {
+  .nftImage {
+    max-width: 200px;  /* or whatever maximum size works for you */
+  }
+}

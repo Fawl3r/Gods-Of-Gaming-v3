@@ -4,10 +4,18 @@ import { useContract, useNFTs } from '@thirdweb-dev/react';
 import Container from '../components/Container/Container';
 import NFTGrid from '../components/NFT/NFTGrid';
 import { NFT_COLLECTION_ADDRESS } from '../const/contractAddresses';
+import {
+  MediaRenderer,
+  ThirdwebNftMedia,
+  useCancelListing,
+  useContractEvents,
+  useValidDirectListings,
+  useValidEnglishAuctions,
+  Web3Button,
+} from "@thirdweb-dev/react";
 
 
-
-const ValidDirectListings = (nft) => {
+const validDirectListings = (nft) => {
   // Replace this with your own logic to determine if a listing is valid
   return nft.status !== "Not for sale";  // Replace 'status' with whatever field contains this text
 };
@@ -27,7 +35,7 @@ export default function Buy() {
 
   useEffect(() => {
     if (data) {
-      const filteredNfts = data.filter(ValidDirectListings);
+      const filteredNfts = data.filter(validDirectListings);
       setValidNfts(filteredNfts);
     }
   }, [data]);
@@ -76,7 +84,24 @@ export default function Buy() {
         <p>Error: {(error as Error).message}</p>
       ) : (
         <NFTGrid data={currentNfts} isLoading={isLoading} emptyText={"Looks like there are no NFTs in this collection."} />
-      )}
+      )};
+      {/* Pagination Controls */}
+      <div>
+        <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+          First
+        </button>
+        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+          Prev
+        </button>
+        <span>Page {currentPage} of {totalPages}</span>
+        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
+          Next
+        </button>
+        <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
+          Last
+        </button>
+      </div>
     </Container>
+    
   );
 }

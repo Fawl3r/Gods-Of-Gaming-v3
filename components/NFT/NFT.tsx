@@ -12,7 +12,7 @@ import {
 } from "../../const/contractAddresses";
 import Skeleton from "../Skeleton/Skeleton";
 import styles from "./NFT.module.css";
-
+import { ThirdwebNftMedia } from "@thirdweb-dev/react";
 type Props = {
   nft: NFT;
 };
@@ -24,7 +24,7 @@ export default function NFTComponent({ nft }: Props) {
   );
 
   // 1. Load if the NFT is for direct listing
-  const { data: directListing, isLoading: loadingDirect } =
+  const { data: validDirectListing, isLoading: loadingDirect } =
     useValidDirectListings(marketplace, {
       tokenContract: NFT_COLLECTION_ADDRESS,
       tokenId: nft.metadata.id,
@@ -48,13 +48,13 @@ export default function NFTComponent({ nft }: Props) {
       <div className={styles.priceContainer}>
         {loadingContract || loadingDirect || loadingAuction ? (
           <Skeleton width="100%" height="100%" />
-        ) : directListing && directListing[0] ? (
+        ) : validDirectListing && validDirectListing[0] ? (
           <div className={styles.nftPriceContainer}>
             <div>
               <p className={styles.nftPriceLabel}>Price</p>
               <p className={styles.nftPriceValue}>
-                {`${directListing[0]?.currencyValuePerToken.displayValue}
-          ${directListing[0]?.currencyValuePerToken.symbol}`}
+                {`${validDirectListing[0]?.currencyValuePerToken.displayValue}
+          ${validDirectListing[0]?.currencyValuePerToken.symbol}`}
               </p>
             </div>
           </div>
