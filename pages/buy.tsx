@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useContract, useNFTs, } from '@thirdweb-dev/react';
+import { useContract, useNFTs } from '@thirdweb-dev/react';
 import Container from '../components/Container/Container';
 import NFTGrid from '../components/NFT/NFTGrid';
 import { NFT_COLLECTION_ADDRESS } from '../const/contractAddresses';
 
-const useValidDirectListings = (nft) => {
-  return nft.isForSale !== false;  // Adjusted to match the actual data structure
+const validDirectListings = (nft) => {
+  return nft.status !== "Not for sale";
 };
 
 export default function Buy() {
@@ -26,16 +26,15 @@ export default function Buy() {
 
   useEffect(() => {
     if (data) {
-      console.log(JSON.stringify(data, null, 2));  // This will log the data as a nicely formatted JSON string
       let filteredNfts = data;
       if (filterStatus !== 'all') {
-        filteredNfts = data.filter(nft => nft.isForSale === (filterStatus === 'For Sale'));
+        filteredNfts = data.filter(nft => nft.status === filterStatus);
       }
 
       if (sortOrder === 'priceAsc') {
-        filteredNfts.sort((a, b) => a.price - b.price);  // Adjusted to match the actual data structure
+        filteredNfts.sort((a, b) => a.price - b.price);
       } else if (sortOrder === 'priceDesc') {
-        filteredNfts.sort((a, b) => b.price - a.price);  // Adjusted to match the actual data structure
+        filteredNfts.sort((a, b) => b.price - a.price);
       }
 
       setValidNfts(filteredNfts);
@@ -83,7 +82,22 @@ export default function Buy() {
       </div>
 
       {/* Pagination Controls */}
-      {/* ... rest of your Pagination Controls code ... */}
+      {/* Pagination Controls */}
+      <div>
+        <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+          First
+        </button>
+        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+          Prev
+        </button>
+        <span>Page {currentPage} of {totalPages}</span>
+        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
+          Next
+        </button>
+        <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
+          Last
+        </button>
+      </div>
 
       <p>Browse which NFTs are available from the collection.</p>
       {error ? (
@@ -93,7 +107,22 @@ export default function Buy() {
       )}
 
       {/* Pagination Controls */}
-      {/* ... rest of your Pagination Controls code ... */}
+      {/* Pagination Controls */}
+      <div>
+        <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+          First
+        </button>
+        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+          Prev
+        </button>
+        <span>Page {currentPage} of {totalPages}</span>
+        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
+          Next
+        </button>
+        <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
+          Last
+        </button>
+      </div>
     </Container>
   );
 }
