@@ -1,6 +1,6 @@
 # NFT Marketplace V3
 
-Create an NFT marketplace on top of your NFT collection on **any** EVM-compatible blockchain.
+
 
 ## Installation
 
