@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useContract, useNFTs } from '@thirdweb-dev/react';
@@ -16,8 +17,8 @@ import {
 
 
 const validDirectListings = (nft) => {
-  // Replace this with your own logic to determine if a listing is valid
-  return nft.status !== "Not for sale";  // Replace 'status' with whatever field contains this text
+  // Replace this with your logic to determine if a listing is valid
+  return nft.priceString !== "Not for sale";  // Replaced 'status' with 'priceString'
 };
 
 export default function Buy() {
@@ -35,6 +36,7 @@ export default function Buy() {
 
   useEffect(() => {
     if (data) {
+      // Adjust this section to execute your new filtering logic
       const filteredNfts = data.filter(validDirectListings);
       setValidNfts(filteredNfts);
     }
@@ -102,6 +104,5 @@ export default function Buy() {
         </button>
       </div>
     </Container>
-    
   );
 }
