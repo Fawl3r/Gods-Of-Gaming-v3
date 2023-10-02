@@ -47,7 +47,7 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
     tokenContract: NFT_COLLECTION_ADDRESS,
     tokenId: nft.metadata.id,
   });
-  console.log(directListings);
+  // console.log(directListings);
   // Connect to NFT Collection smart contract
 
   const { contract: nftCollection } = useContract(NFT_COLLECTION_ADDRESS);
