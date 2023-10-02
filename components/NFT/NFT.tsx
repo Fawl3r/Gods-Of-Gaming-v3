@@ -36,7 +36,6 @@ export default function NFTComponent({ nft }: Props) {
       tokenContract: NFT_COLLECTION_ADDRESS,
       tokenId: nft.metadata.id,
     });
-  
 
   return (
     <>
@@ -46,8 +45,8 @@ export default function NFTComponent({ nft }: Props) {
         alt={`NFT ${nft.metadata.id}`}
         className={styles.nftImage}
       />
-      <p className={styles.nftTokenId}>Token ID #{nft.metadata.id}</p>
-      <p className={styles.nftName}>{nft.metadata.name}</p>
+      <p className={styles.nftTokenId}>Token ID #{nft?.metadata.id}</p>
+      <p className={styles.nftName}>{nft?.metadata.name}</p>
       <div className={styles.priceContainer}>
         {loadingContract || loadingDirect || loadingAuction ? (
           <Skeleton width="100%" height="100%" />
@@ -66,7 +65,7 @@ export default function NFTComponent({ nft }: Props) {
             <div>
               <p className={styles.nftPriceLabel}>Minimum Bid</p>
               <p className={styles.nftPriceValue}>
-                {`${auctionListing[0]?.minimumBidCurrencyValue.displayValue}
+                {`${auctionListing[0]?.minimumBidCurrencyValue}
           ${auctionListing[0]?.minimumBidCurrencyValue.symbol}`}
               </p>
             </div>

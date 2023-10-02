@@ -20,7 +20,6 @@ import {
 export default function Buy() {
   const router = useRouter();
   const currentPage = parseInt(router.query.page as string) || 1;
-
   const { contract } = useContract(NFT_COLLECTION_ADDRESS);
   const { contract: marketplace } = useContract(
     MARKETPLACE_ADDRESS,
@@ -30,25 +29,30 @@ export default function Buy() {
     count: 1000,
     start: 0,
   });
-
+  // console.log(useFetchAllEvents());
   const [nftsPerPage] = useState(50);
   const [validNfts, setValidNfts] = useState([]);
+  const {
+    data: validDirectListings,
+    isLoading: isLoadingDirectValidListings,
+    error: directValidListingsError,
+  } = useValidDirectListings(marketplace);
+  // console.log(validDirectListings);
   const {
     data: directListings,
     isLoading: isLoadingDirectListings,
     error: directListingsError,
-  } = useValidDirectListings(marketplace);
+  } = useDirectListings(marketplace);
   // console.log(directListings);
   useEffect(() => {
-    if (data && directListings) {
-      const validNftIds = directListings.map((listing) => listing.tokenId);
+    if (data && validDirectListings) {
+      const validNftIds = validDirectListings.map((listing) => listing.tokenId);
       const filteredNfts = data.filter((nft) =>
         validNftIds.includes(nft.metadata.id)
       );
-      console.log(filteredNfts);
       setValidNfts(filteredNfts);
     }
-  }, [data, directListings]);
+  }, [data, validDirectListings]);
   const totalPages = validNfts ? Math.ceil(validNfts.length / nftsPerPage) : 0;
   const indexOfLastNft = currentPage * nftsPerPage;
   const indexOfFirstNft = indexOfLastNft - nftsPerPage;
