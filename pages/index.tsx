@@ -26,14 +26,22 @@ const Home: NextPage = () => {
           </div>
           <div className={styles.heroAssetFrame}>
            
-          <Image
-  src="https://ipfs.io/ipfs/QmcCBsLTQ7uQrvhhGsUpbZBAx5j9cP2aPX2QTjpys7YdLS/hero-asset.gif"
-  width={1000}
-  height={600}
-  alt="Hero asset, NFT marketplace"
-  quality={100}
-  className={styles.heroAsset}
-/>
+          <video 
+  width="1000" 
+  height="600" 
+  autoPlay 
+  loop 
+  muted 
+  className={styles.yourVideoStyle}
+>
+  <source 
+    src="https://ipfs.io/ipfs/QmYgc5XDmJ6FUFTwy78PqBTGaVRe6jcS7t6wNuwsKojuzM/F3%20Dominion1.mp4" 
+    type="video/mp4" 
+  />
+  Your browser does not support the video tag.
+</video>
+
+
           </div>
           <div className={styles.heroBodyContainer}>
             <div className={styles.heroBody}>
