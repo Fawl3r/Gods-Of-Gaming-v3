@@ -26,14 +26,14 @@ const Home: NextPage = () => {
           </div>
           <div className={styles.heroAssetFrame}>
            
-            <Image
-              src="/hero-asset.gif"
-              width={800}
-              height={500}
-              alt="Hero asset, NFT marketplace"
-              quality={100}
-              className={styles.heroAsset}
-            />
+          <Image
+  src="https://ipfs.io/ipfs/QmcCBsLTQ7uQrvhhGsUpbZBAx5j9cP2aPX2QTjpys7YdLS/hero-asset.gif"
+  width={1000}
+  height={600}
+  alt="Hero asset, NFT marketplace"
+  quality={100}
+  className={styles.heroAsset}
+/>
           </div>
           <div className={styles.heroBodyContainer}>
             <div className={styles.heroBody}>
