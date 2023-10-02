@@ -14,22 +14,30 @@ export function Navbar() {
     <div className={styles.navContainer}>
       <nav className={styles.nav}>
         <div className={styles.navLeft}>
-          <Link href="/" className={`${styles.homeLink} ${styles.navLeft}`}>
-            <Image
-              src="/logo.png"
-              width={64}
-              height={48}
-              alt="NFT marketplace sample logo"
-            />
+          <Link href="/">
+            <div className={`${styles.homeLink} ${styles.navLeft}`}>
+              <Image
+                src="/logo.png"
+                width={64}
+                height={48}
+                alt="NFT marketplace sample logo"
+              />
+            </div>
           </Link>
 
           <div className={styles.navMiddle}>
-            <Link href="/buy" className={styles.link}>
-              Buy
+            <Link href="/buy">
+              <div className={styles.link}>Buy</div>
             </Link>
-            <Link href="/sell" className={styles.link}>
-              Sell
+            <Link href="/sell">
+              <div className={styles.link}>Sell</div>
             </Link>
+            <Link href="/warriordex"> 
+              <div className={styles.link}>Warrior Dex</div>
+            </Link>
+            <a href="https://f3-limited-edition.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.link}>
+              Limited Editions
+            </a>
           </div>
         </div>
 
@@ -38,14 +46,16 @@ export function Navbar() {
             <ConnectWallet theme="dark" btnTitle="Connect Wallet" />
           </div>
           {address && (
-            <Link className={styles.link} href={`/profile/${address}`}>
-              <Image
-                className={styles.profileImage}
-                src="/user-icon.png"
-                width={42}
-                height={42}
-                alt="Profile"
-              />
+            <Link href={`/profile/${address}`}>
+              <div className={styles.link}>
+                <Image
+                  className={styles.profileImage}
+                  src="/user-icon.png"
+                  width={42}
+                  height={42}
+                  alt="Profile"
+                />
+              </div>
             </Link>
           )}
         </div>

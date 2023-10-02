@@ -99,7 +99,7 @@ export default function Buy() {
           Last
         </button>
       </div>
-      <p>Browse which NFTs are available from the collection.</p>
+      <p>Browse which NFTs are available.</p>
       {error ? (
         <p>Error: {(error as Error).message}</p>
       ) : (
