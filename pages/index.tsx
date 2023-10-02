@@ -25,7 +25,6 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className={styles.heroAssetFrame}>
-           
             <Image
               src="/hero-asset.gif"
               width={800}
@@ -50,7 +49,7 @@ const Home: NextPage = () => {
                   href="https://godsofgaming.games"
                   target="_blank"
                 >
-                  Gods Of Gaming 
+                  Gods Of Gaming
                 </Link>{" "}
                 Presents: <i>F3 Warriors—Where Deities and Heroes Collide!</i>.
               </p>

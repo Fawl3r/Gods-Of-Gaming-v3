@@ -8,7 +8,7 @@ import {
   useValidEnglishAuctions,
   Web3Button,
 } from "@thirdweb-dev/react";
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Container from "../../../components/Container/Container";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { ListingType, NFT, ThirdwebSDK } from "@thirdweb-dev/sdk";
@@ -24,50 +24,56 @@ import randomColor from "../../../util/randomColor";
 import Skeleton from "../../../components/Skeleton/Skeleton";
 import toast, { Toaster } from "react-hot-toast";
 import toastStyle from "../../../util/toastConfig";
-
 type Props = {
   nft: NFT;
   contractMetadata: any;
 };
-
 const [randomColor1, randomColor2] = [randomColor(), randomColor()];
 
 export default function TokenPage({ nft, contractMetadata }: Props) {
   const [bidValue, setBidValue] = useState<string>();
+  const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
 
   // Connect to marketplace smart contract
   const { contract: marketplace, isLoading: loadingContract } = useContract(
     MARKETPLACE_ADDRESS,
     "marketplace-v3"
   );
-
+  const {
+    data: directListings,
+    isLoading: isLoadingDirectListings,
+    error: directListingsError,
+  } = useValidDirectListings(marketplace, {
+    tokenContract: NFT_COLLECTION_ADDRESS,
+    tokenId: nft.metadata.id,
+  });
+  console.log(directListings);
   // Connect to NFT Collection smart contract
+
   const { contract: nftCollection } = useContract(NFT_COLLECTION_ADDRESS);
+  // The name of the event to get logs for
+  async function App() {
+    const { contract } = useContract(NFT_COLLECTION_ADDRESS, "marketplace");
+    const {
+      mutateAsync: cancelListing,
+      isLoading,
+      error,
+    } = useCancelListing(contract);
 
-      function App() {
-        const { contract } = useContract(NFT_COLLECTION_ADDRESS, "marketplace");
-        const {
-          mutateAsync: cancelListing,
-          isLoading,
-          error,
-        } = useCancelListing(contract);
-
-
-        return (
-          <Web3Button
-            contractAddress={NFT_COLLECTION_ADDRESS}
-            action={() =>
-              cancelListing({
-                id: '{{listing_id}}',
-                type: ListingType.Direct,
-              })
-            }
-            >
-              Cancel Listing
-            </Web3Button>
-        );
-      }
-
+    return (
+      <Web3Button
+        contractAddress={NFT_COLLECTION_ADDRESS}
+        action={() =>
+          cancelListing({
+            id: "{{listing_id}}",
+            type: ListingType.Direct,
+          })
+        }
+      >
+        Cancel Listing
+      </Web3Button>
+    );
+  }
 
   const { data: directListing, isLoading: loadingDirect } =
     useValidDirectListings(marketplace, {
@@ -83,19 +89,19 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
     });
 
   // Load historical transfer events: TODO - more event types like sale
-  const { data: transferEvents, isLoading: loadingTransferEvents } =
-    useContractEvents(nftCollection, "Transfer", {
-      queryFilter: {
-        filters: {
-          tokenId: nft.metadata.id,
-        },
-        order: "desc",
-      },
-    });
 
+  const {
+    data: transferEvents,
+    isLoading,
+    error,
+  } = useContractEvents(marketplace, "Transfer", {
+    queryFilter: {
+      order: "desc",
+    },
+  });
   async function createBidOrOffer() {
     let txResult;
-    if (!bidValue) {
+    if (!bidValue || 0) {
       toast(`Please enter a bid value`, {
         icon: "❌",
         style: toastStyle,
@@ -140,6 +146,45 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
     return txResult;
   }
 
+  function formatTimeRemaining(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    return `${hours}h ${minutes}m ${remainingSeconds}s`;
+  }
+
+  useEffect(() => {
+    let timerInterval;
+
+    if (auctionListing && auctionListing[0]) {
+      const endTimeInSeconds = auctionListing[0].endTimeInSeconds;
+      const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+
+      if (endTimeInSeconds > currentTimeInSeconds) {
+        const remainingTime = endTimeInSeconds - currentTimeInSeconds;
+        setTimeRemaining(remainingTime);
+
+        // Start a timer to update the time remaining every second
+        timerInterval = setInterval(() => {
+          if (timeRemaining > 0) {
+            setTimeRemaining((prevTime) => prevTime - 1);
+          } else {
+            // Auction has ended, clear the interval
+            clearInterval(timerInterval);
+          }
+        }, 1000);
+      } else {
+        // Auction has ended
+        setTimeRemaining(0);
+      }
+    }
+    return () => {
+      clearInterval(timerInterval); // Cleanup the interval when component unmounts
+    };
+  }, [auctionListing]);
+  const formattedTimeRemaining =
+    timeRemaining !== null ? formatTimeRemaining(timeRemaining) : "Loading...";
   return (
     <>
       <Toaster position="bottom-center" reverseOrder={false} />
@@ -158,16 +203,19 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
               <h3 className={styles.descriptionTitle}>Traits</h3>
 
               <div className={styles.traitsContainer}>
-                {Object.entries(nft?.metadata?.attributes || {}).map(
-                  ([key, value]) => (
-                    <div className={styles.traitContainer} key={key}>
-                      <p className={styles.traitName}>{key}</p>
+                {nft?.metadata?.attributes &&
+                  Array.isArray(nft.metadata.attributes) &&
+                  nft.metadata.attributes.map((attribute: any, index: any) => (
+                    <div className={styles.traitContainer} key={index}>
+                      <p className={styles.traitName}>{attribute.trait_type}</p>
                       <p className={styles.traitValue}>
-                        {value?.toString() || ""}
+                        {/* Check if the attribute value is an object, and convert it to a string */}
+                        {typeof attribute.value === "object"
+                          ? JSON.stringify(attribute.value)
+                          : attribute.value}
                       </p>
                     </div>
-                  )
-                )}
+                  ))}
               </div>
 
               <h3 className={styles.descriptionTitle}>History</h3>
@@ -270,7 +318,9 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
                       ) : auctionListing && auctionListing[0] ? (
                         <>
                           {auctionListing[0]?.buyoutCurrencyValue.displayValue}
-                          {" " + auctionListing[0]?.buyoutCurrencyValue.symbol}
+                          {" " +
+                            auctionListing[0]?.buyoutCurrencyValue.symbol +
+                            auctionListing[0].endTimeInSeconds}
                         </>
                       ) : (
                         "Not for sale"
@@ -297,6 +347,31 @@ export default function TokenPage({ nft, contractMetadata }: Props) {
                             }
                             {" " +
                               auctionListing[0]?.minimumBidCurrencyValue.symbol}
+                          </div>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
+                <div>
+                  {loadingAuction ? (
+                    <Skeleton width="120" height="24" />
+                  ) : (
+                    <>
+                      {auctionListing && auctionListing[0] && (
+                        <>
+                          <p className={styles.label} style={{ marginTop: 12 }}>
+                            Auction ends in
+                          </p>
+
+                          <div className={styles.pricingValue}>
+                            {/* {
+                              auctionListing[0]?.minimumBidCurrencyValue
+                                .displayValue
+                            }
+                            {" " +
+                              auctionListing[0]?.minimumBidCurrencyValue.symbol} */}
+                            {" " + formattedTimeRemaining}
                           </div>
                         </>
                       )}
@@ -394,7 +469,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   try {
     contractMetadata = await contract.metadata.get();
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 
   return {
     props: {
