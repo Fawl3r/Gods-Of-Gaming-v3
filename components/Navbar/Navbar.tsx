@@ -36,7 +36,7 @@ export function Navbar() {
               <div className={styles.link}>Warrior Dex</div>
             </Link>
             <a href="https://f3-limited-edition.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.link}>
-              Limited Editions
+              Limited Edition NFTs
             </a>
           </div>
         </div>
