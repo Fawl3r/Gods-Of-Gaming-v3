@@ -50,7 +50,7 @@ export default function Buy() {
 
   const setCurrentPage = (page: number) => {
     router.push({
-      pathname: '/buy',
+      pathname: '/warriordex',
       query: { page }
     });
   };
