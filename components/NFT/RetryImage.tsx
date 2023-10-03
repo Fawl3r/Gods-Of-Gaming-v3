@@ -10,7 +10,7 @@ const RetryImage = ({ src, alt, maxRetries = 1000, ...props }) => {
       setTimeout(() => {
         setImgSrc(`${src}?retry=${retryCount}`);
         setRetryCount(retryCount + 1);
-      }, 1000);  // 1 second delay before retrying
+      }, 25000);  // 1 second delay before retrying
     }
   };
 
