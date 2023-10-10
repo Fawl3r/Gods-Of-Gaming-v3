@@ -1,24 +1,9 @@
-.activeTabContent {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the minmax values to your liking */
-  gap: 10px; /* Adjust the gap value to your liking */
-  opacity: 1;
-}
-
-
-
 .nftImage {
   /* Override default NFT renderer width */
   width: 75% !important;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.04);
-  object-fit: scale-down;
-    display: -moz-inline-grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the minmax values to your liking */
-    gap: 10px; /* Adjust the gap value to your liking */
-    opacity: 1;
-  
-  
+  object-fit: cover;
 }
 
 .nftTokenId {

@@ -7,7 +7,7 @@
 }
 
 .nftContainer {
-  width: 18%;
+  width: 17.8%;
   margin: 8px;
   position: relative;
   overflow: hidden;
@@ -56,8 +56,4 @@
   .nftContainer {
     width: 45%;
   }
-}
-.nftItem {
-  min-width: 200px; /* Adjust accordingly */
-  min-height: 200px; /* Adjust accordingly */
 }
