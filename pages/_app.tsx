@@ -1,28 +1,18 @@
 import type { AppProps } from "next/app";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
-import { Navbar } from "../components/Navbar/Navbar";
-import NextNProgress from "nextjs-progressbar";
-import { NETWORK } from "../const/contractAddresses";
 import "../styles/globals.css";
+import { Navbar } from "../components/Navbar/Navbar";
+
+// This is the chain your dApp will work on.
+// Change this to the chain your app is built for.
+// You can also import additional chains from `@thirdweb-dev/chains` and pass them directly.
+const activeChain = "binance";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThirdwebProvider
-      clientId= {process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID}
-      activeChain={NETWORK}
+    <ThirdwebProvider activeChain={activeChain} clientId="39020559f22ebc5fa1c550b700ccc3bc"
     >
-      {/* Progress bar when navigating between pages */}
-      <NextNProgress
-        color="var(--color-tertiary)"
-        startPosition={0.3}
-        stopDelayMs={200}
-        height={3}
-        showOnShallow={true}
-      />
-
-      {/* Render the navigation menu above each component */}
       <Navbar />
-      {/* Render the actual component (page) */}
       <Component {...pageProps} />
     </ThirdwebProvider>
   );
