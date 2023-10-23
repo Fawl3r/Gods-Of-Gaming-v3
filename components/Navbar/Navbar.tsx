@@ -1,14 +1,20 @@
-import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 
 export function Navbar() {
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const address = useAddress();
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
     <div className={styles.navContainer}>
-      <nav className={styles.nav}>
+      <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.mobileMenuOpen : ""}`}>
         <div className={styles.navLeft}>
           <Link href="/">
             <div className={`${styles.homeLink} ${styles.navLeft}`}>
@@ -22,20 +28,25 @@ export function Navbar() {
           </Link>
         </div>
 
-        <div className={styles.navMiddle}>
+        <div className={`${styles.navMiddle} ${isMobileMenuOpen ? styles.mobileMenuOpen : ""}`}>
           <Link href="/buy">
             <div className={styles.link}>Buy</div>
           </Link>
           <Link href="/sell">
             <div className={styles.link}>Sell</div>
           </Link>
-          <Link href="/warriordex"> 
+          <Link href="/warriordex">
             <div className={styles.link}>Warrior Dex</div>
           </Link>
           <Link href="https://f3-packs.vercel.app/">
             <div className={styles.link}>F3 Packs</div>
           </Link>
-          <a href="https://f3-limited-edition.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.link}>
+          <a
+            href="https://f3-limited-edition.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link}
+          >
             Limited Edition NFTs
           </a>
         </div>
@@ -57,6 +68,14 @@ export function Navbar() {
               </div>
             </Link>
           )}
+        </div>
+
+        <div className={styles.mobileMenuButton} onClick={toggleMobileMenu}>
+          <div className={`${styles.menuIcon} ${isMobileMenuOpen ? styles.open : ""}`}>
+            <div className={styles.bar}></div>
+            <div className={styles.bar}></div>
+            <div className={styles.bar}></div>
+          </div>
         </div>
       </nav>
     </div>

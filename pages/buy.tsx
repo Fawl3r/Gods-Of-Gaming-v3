@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useContract, useNFTs } from "@thirdweb-dev/react";
+import { ConnectWallet, useContract, useNFTs } from "@thirdweb-dev/react";
 import Container from "../components/Container/Container";
 import NFTGrid from "../components/NFT/NFTGrid";
 import {
@@ -74,6 +74,9 @@ export default function Buy() {
   return (
     <div className={styles.background}>
       <Container maxWidth="lg">
+      <div className={styles.connectWalletButton}>
+          <ConnectWallet />
+        </div>
         <h1>Buy Warrior NFTs</h1>
         <p>Browse which NFTs are available.</p>
         {error ? (
