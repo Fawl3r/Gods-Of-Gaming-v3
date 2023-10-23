@@ -1,4 +1,3 @@
-/* Common styles for larger screens */
 .navContainer {
   width: 100%;
   display: flex;
@@ -88,23 +87,7 @@
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
-/* Styles for screens less than 720px */
-@media (max-width: 720px) {
-  .navContainer {
-    flex-direction: column; /* Stack elements vertically for smaller screens */
-    align-items: center;
-  }
-
-  .navMiddle {
-    display: none; /* Hide the middle links on smaller screens */
-  }
-
-  .link {
-    font-size: 18px; /* Decrease font size for smaller screens */
-  }
-}
-
-/* Styles for screens less than 500px */
+/* Sreens less than 720px */
 @media (max-width: 500px) {
   .navConnect {
     display: none !important;
