@@ -35,11 +35,12 @@ const Home: NextPage = () => {
   className={styles.yourVideoStyle}
 >
   <source 
-    src="https://ipfs.io/ipfs/QmYgc5XDmJ6FUFTwy78PqBTGaVRe6jcS7t6wNuwsKojuzM/F3%20Dominion1.mp4" 
+    src="/bghero.mp4" // Provide the correct path to the video
     type="video/mp4" 
   />
   Your browser does not support the video tag.
 </video>
+
 
 
           </div>

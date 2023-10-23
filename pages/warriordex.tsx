@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useContract, useNFTs } from '@thirdweb-dev/react';
@@ -14,7 +13,7 @@ import {
   useValidEnglishAuctions,
   Web3Button,
 } from "@thirdweb-dev/react";
-
+import styles from '../styles/Home.module.css'; // Import your CSS for the background video
 
 const validDirectListings = (nft) => {
   // Replace this with your logic to determine if a listing is valid
@@ -59,50 +58,60 @@ export default function Buy() {
     setCurrentPage(pageNumber);
   };
 
-  return (
-    <Container maxWidth="lg">
-      
-      <h1>Warrior NFT Dex</h1>
+  // Define the video source
+  const videoSource = "/f3.mp4"; // Provide the correct path to the video in the public folder
 
-      {/* Pagination Controls */}
-      <div>
-        <button onClick={() => paginate(1)} disabled={currentPage === 1}>
-          First
-        </button>
-        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
-          Prev
-        </button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
-          Next
-        </button>
-        <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
-          Last
-        </button>
-      </div>
-      
-      <p>Browse Our Collection.</p>
-      {error ? (
-        <p>Error: {(error as Error).message}</p>
-      ) : (
-        <NFTGrid data={currentNfts} isLoading={isLoading} emptyText={"Looks like there are no NFTs in this collection."} />
-      )};
-      {/* Pagination Controls */}
-      <div>
-        <button onClick={() => paginate(1)} disabled={currentPage === 1}>
-          First
-        </button>
-        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
-          Prev
-        </button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
-          Next
-        </button>
-        <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
-          Last
-        </button>
-      </div>
-    </Container>
+  return (
+    <div className={styles.background}>
+      {/* Video Background */}
+      <video autoPlay loop muted className={styles.backgroundVideo}>
+        <source src={videoSource} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <Container maxWidth="lg">
+        <h1>Warrior NFT Dex</h1>
+
+        {/* Pagination Controls */}
+        <div>
+          <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+            First
+          </button>
+          <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+            Prev
+          </button>
+          <span>Page {currentPage} of {totalPages}</span>
+          <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
+            Next
+          </button>
+          <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
+            Last
+          </button>
+        </div>
+        
+        <p>Browse Our Collection.</p>
+        {error ? (
+          <p>Error: {(error as Error).message}</p>
+        ) : (
+          <NFTGrid data={currentNfts} isLoading={isLoading} emptyText={"Looks like there are no NFTs in this collection."} />
+        )}
+        {/* Pagination Controls */}
+        <div>
+          <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+            First
+          </button>
+          <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+            Prev
+          </button>
+          <span>Page {currentPage} of {totalPages}</span>
+          <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
+            Next
+          </button>
+          <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
+            Last
+          </button>
+        </div>
+      </Container>
+    </div>
   );
 }

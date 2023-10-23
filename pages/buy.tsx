@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useContract, useNFTs } from "@thirdweb-dev/react";
 import Container from "../components/Container/Container";
@@ -8,15 +8,13 @@ import {
   MARKETPLACE_ADDRESS,
 } from "../const/contractAddresses";
 import {
-  MediaRenderer,
-  ThirdwebNftMedia,
-  useCancelListing,
-  useContractEvents,
   useValidDirectListings,
   useDirectListings,
-  useValidEnglishAuctions,
-  Web3Button,
 } from "@thirdweb-dev/react";
+
+// Import your CSS for the background video
+import styles from '../styles/Home.module.css'; // Adjust the path as needed
+
 export default function Buy() {
   const router = useRouter();
   const currentPage = parseInt(router.query.page as string) || 1;
@@ -29,7 +27,7 @@ export default function Buy() {
     count: 1000,
     start: 0,
   });
-  // console.log(useFetchAllEvents());
+
   const [nftsPerPage] = useState(50);
   const [validNfts, setValidNfts] = useState([]);
   const {
@@ -37,13 +35,13 @@ export default function Buy() {
     isLoading: isLoadingDirectValidListings,
     error: directValidListingsError,
   } = useValidDirectListings(marketplace);
-  // console.log(validDirectListings);
+
   const {
     data: directListings,
     isLoading: isLoadingDirectListings,
     error: directListingsError,
   } = useDirectListings(marketplace);
-  // console.log(directListings);
+
   useEffect(() => {
     if (data && validDirectListings) {
       const validNftIds = validDirectListings.map((listing) => listing.tokenId);
@@ -53,89 +51,73 @@ export default function Buy() {
       setValidNfts(filteredNfts);
     }
   }, [data, validDirectListings]);
+
   const totalPages = validNfts ? Math.ceil(validNfts.length / nftsPerPage) : 0;
   const indexOfLastNft = currentPage * nftsPerPage;
   const indexOfFirstNft = indexOfLastNft - nftsPerPage;
   const currentNfts = validNfts.slice(indexOfFirstNft, indexOfLastNft);
 
-  const setCurrentPage = (page: number) => {
+  const setCurrentPage = (page) => {
     router.push({
       pathname: "/buy",
       query: { page },
     });
   };
 
-  const paginate = (pageNumber: number) => {
+  const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
+  // Define the video source
+  const videoSource = "/f3.mp4"; // Provide the correct path to the video in the public folder
+
   return (
-    <Container maxWidth="lg">
-      <h1>Buy Warrior NFTs</h1>
-      {/* Pagination Controls */}
-      <div>
-        <button onClick={() => paginate(1)} disabled={currentPage === 1}>
-          First
-        </button>
-        <button
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Prev
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-        <button
-          onClick={() => paginate(totalPages)}
-          disabled={currentPage === totalPages}
-        >
-          Last
-        </button>
-      </div>
-      <p>Browse which NFTs are available.</p>
-      {error ? (
-        <p>Error: {(error as Error).message}</p>
-      ) : (
-        <NFTGrid
-          data={currentNfts}
-          isLoading={isLoading}
-          emptyText={"Loading Nfts..."}
-        />
-      )}
-      ;{/* Pagination Controls */}
-      <div>
-        <button onClick={() => paginate(1)} disabled={currentPage === 1}>
-          First
-        </button>
-        <button
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Prev
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-        <button
-          onClick={() => paginate(totalPages)}
-          disabled={currentPage === totalPages}
-        >
-          Last
-        </button>
-      </div>
-    </Container>
+    <div className={styles.background}>
+      <Container maxWidth="lg">
+        <h1>Buy Warrior NFTs</h1>
+        <p>Browse which NFTs are available.</p>
+        {error ? (
+          <p>Error: {(error as Error).message}</p>
+        ) : (
+          <NFTGrid
+            data={currentNfts}
+            isLoading={isLoading}
+            emptyText={"Loading NFTs..."}
+          />
+        )}
+        {/* Pagination Controls */}
+        <div>
+          <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+            First
+          </button>
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+          <button
+            onClick={() => paginate(totalPages)}
+            disabled={currentPage === totalPages}
+          >
+            Last
+          </button>
+        </div>
+      </Container>
+      {/* Video Background */}
+      <video autoPlay loop muted className={styles.backgroundVideo}>
+        <source src={videoSource} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
   );
 }

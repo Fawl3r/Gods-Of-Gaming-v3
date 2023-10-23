@@ -10,8 +10,7 @@ const activeChain = "binance";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThirdwebProvider activeChain={activeChain} clientId="39020559f22ebc5fa1c550b700ccc3bc"
-    >
+    <ThirdwebProvider activeChain={activeChain} clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID} secretKey={process.env.TW_SECRET_KEY}>
       <Navbar />
       <Component {...pageProps} />
     </ThirdwebProvider>

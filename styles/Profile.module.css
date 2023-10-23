@@ -1,10 +1,10 @@
-
-
+.profileHeader {
+}
 
 .coverImage {
   width: 100%;
   background-color: #272a2d;
-  height: 200px;
+  height: 300px;
   border-radius: 16px;
 }
 
@@ -46,24 +46,20 @@
 }
 
 .activeTab {
-  
   color: rgba(255, 255, 255, 1);
-  border-bottom: 2px solid #c5ba24;
-  color: #C7AF45;
+  border-bottom: 2px solid #0294fe;
+  color: #0294fe;
 }
 
 .tabContent {
-  display: grid;
-  height: 60px;
+  display: none;
+  height: 0px;
   opacity: 0;
   transition: all 0.1s linear;
 }
 
 .activeTabContent {
-  display: -moz-inline-grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the minmax values to your liking */
-  gap: 10px; /* Adjust the gap value to your liking */
+  display: flex;
+  flex-direction: row;
   opacity: 1;
 }
-
-

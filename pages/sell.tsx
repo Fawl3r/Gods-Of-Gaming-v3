@@ -23,7 +23,6 @@ export default function Sell() {
   const { data, isLoading } = useOwnedNFTs(contract, address);
   const [selectedNft, setSelectedNft] = useState<NFTType>();
 
-
   const [nftsPerPage] = useState(30);
   const totalPages = data ? Math.ceil(data.length / nftsPerPage) : 0;
   const indexOfLastNft = currentPage * nftsPerPage;
@@ -41,30 +40,38 @@ export default function Sell() {
     setCurrentPage(pageNumber);
   };
 
+  // Define the video source
+  const videoSource = "/f3.mp4"; // Provide the correct path to the video in the public folder
+
   return (
-    <div className={styles.container}>
+    <div className={styles.background}>
+      {/* Video Background */}
+      <video autoPlay loop muted className={styles.backgroundVideo}>
+        <source src={videoSource} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
       <Container maxWidth="lg">
         <div className={styles.connectWalletButton}>
           <ConnectWallet />
         </div>
         <h1>Sell Warrior NFTs</h1>
         {/* Pagination Controls */}
-      <div>
-        <button onClick={() => paginate(1)} disabled={currentPage === 1}>
-          First
-        </button>
-        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
-          Prev
-        </button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
-          Next
-        </button>
-        <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
-          Last
-        </button>
-      </div>
-        
+        <div>
+          <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+            First
+          </button>
+          <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+            Prev
+          </button>
+          <span>Page {currentPage} of {totalPages}</span>
+          <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
+            Next
+          </button>
+          <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
+            Last
+          </button>
+        </div>
         
         {!selectedNft ? (
           <>

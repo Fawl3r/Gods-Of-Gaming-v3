@@ -72,6 +72,7 @@ export default function ListingWrapper({ listing }: Props) {
   
     // Separate async function to cancel a direct listing
     async function cancelDirect() {
+      console.log("Cancel direct clicked");
       return await cancelDirectListing(listing.id);
     }
 
