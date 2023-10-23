@@ -1,3 +1,4 @@
+/* Common styles for larger screens */
 .navContainer {
   width: 100%;
   display: flex;
@@ -87,9 +88,24 @@
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
-/* Sreens less than 720px */
-@media (max-width: 500px) {
-  .navConnect {
-    display: none !important;
+/* Styles for screens less than 720px */
+@media (max-width: 720px) {
+  .navContainer {
+    justify-content: space-between; /* Adjust the layout for smaller screens */
+  }
+
+  .navMiddle {
+    display: none; /* Hide the middle links on smaller screens */
+  }
+
+  .link {
+    font-size: 18px; /* Decrease font size for smaller screens */
+  }
+
+  /* Sreens less than 500px */
+  @media (max-width: 500px) {
+    .navConnect {
+      display: none !important;
+    }
   }
 }

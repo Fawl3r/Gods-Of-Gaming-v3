@@ -3,10 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
 
-/**
- * Navigation bar that shows up on all pages.
- * Rendered in _app.tsx file above the page content.
- */
 export function Navbar() {
   const address = useAddress();
 
@@ -24,24 +20,24 @@ export function Navbar() {
               />
             </div>
           </Link>
+        </div>
 
-          <div className={styles.navMiddle}>
-            <Link href="/buy">
-              <div className={styles.link}>Buy</div>
-            </Link>
-            <Link href="/sell">
-              <div className={styles.link}>Sell</div>
-            </Link>
-            <Link href="/warriordex"> 
-              <div className={styles.link}>Warrior Dex</div>
-            </Link>
-            <Link href="https://f3-packs.vercel.app/">
-              <div className={styles.link}>F3 Packs</div>
-            </Link>
-            <a href="https://f3-limited-edition.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.link}>
-              Limited Edition NFTs
-            </a>
-          </div>
+        <div className={styles.navMiddle}>
+          <Link href="/buy">
+            <div className={styles.link}>Buy</div>
+          </Link>
+          <Link href="/sell">
+            <div className={styles.link}>Sell</div>
+          </Link>
+          <Link href="/warriordex"> 
+            <div className={styles.link}>Warrior Dex</div>
+          </Link>
+          <Link href="https://f3-packs.vercel.app/">
+            <div className={styles.link}>F3 Packs</div>
+          </Link>
+          <a href="https://f3-limited-edition.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.link}>
+            Limited Edition NFTs
+          </a>
         </div>
 
         <div className={styles.navRight}>
