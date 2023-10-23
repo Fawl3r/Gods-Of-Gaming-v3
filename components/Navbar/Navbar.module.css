@@ -93,3 +93,43 @@
     display: none !important;
   }
 }
+.mobileDropdownButton {
+  display: none; /* Initially hide the dropdown button */
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.945);
+  cursor: pointer;
+  padding: 10px;
+}
+
+.mobileDropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  z-index: 1;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Show dropdown menu when button is clicked */
+.mobileDropdownButton:focus + .mobileDropdown {
+  display: flex;
+}
+
+/* Style the links in the dropdown menu */
+.mobileDropdown .link {
+  color: rgba(255, 255, 255, 0.945);
+  font-size: 18px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.mobileDropdown .link:hover {
+  color: rgba(255, 255, 255, 1);
+}
