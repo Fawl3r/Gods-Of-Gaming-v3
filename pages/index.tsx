@@ -25,24 +25,21 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className={styles.heroAssetFrame}>
-           
-          <video 
-  width="1000" 
-  height="600" 
-  autoPlay 
-  loop 
-  muted 
-  className={styles.yourVideoStyle}
->
-  <source 
-    src="/bghero.mp4" // Provide the correct path to the video
-    type="video/mp4" 
-  />
-  Your browser does not support the video tag.
-</video>
-
-
-
+            <div className={styles.videoOverlay}></div> {/* Add overlay */}
+            <video
+              width="1000"
+              height="600"
+              autoPlay
+              loop
+              muted
+              className={styles.yourVideoStyle}
+            >
+              <source
+                src="/bghero.mp4" // Provide the correct path to the video
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
           </div>
           <div className={styles.heroBodyContainer}>
             <div className={styles.heroBody}>
@@ -59,7 +56,7 @@ const Home: NextPage = () => {
                   href="https://godsofgaming.games"
                   target="_blank"
                 >
-                  Gods Of Gaming 
+                  Gods Of Gaming
                 </Link>{" "}
                 Presents: <i>F3 Warriors—Where Deities and Heroes Collide!</i>.
               </p>
