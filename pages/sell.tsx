@@ -42,7 +42,7 @@ export default function Sell() {
   };
 
   // Define the video source with the provided IPFS URL
-  const videoSource = "/f3.mp4";
+  const videoSource = "https://video.wixstatic.com/video/1808ae_22da5ac7de5c4e48a3e5fcaf133a28a4/1080p/mp4/file.mp4";
 
   return (
     <motion.div // Wrap the entire component with motion.div

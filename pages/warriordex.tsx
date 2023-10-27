@@ -59,7 +59,7 @@ export default function Buy() {
   };
 
   // Define the video source
-  const videoSource = "/f3.mp4"; // Provide the correct path to the video in the public folder
+  const videoSource = "https://video.wixstatic.com/video/1808ae_22da5ac7de5c4e48a3e5fcaf133a28a4/1080p/mp4/file.mp4"; // Provide the correct path to the video in the public folder
 
   return (
     <motion.div // Wrap the entire component with motion.div
