@@ -33,6 +33,7 @@ const Home: NextPage = () => {
               autoPlay
               loop
               muted
+              playsInline // Add playsInline attribute
               className={styles.yourVideoStyle}
             >
               <source

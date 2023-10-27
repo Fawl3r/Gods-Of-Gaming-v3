@@ -164,10 +164,10 @@ export default function Buy() {
         </div>
       </Container>
       {/* Video Background */}
-      <video autoPlay loop muted className={styles.backgroundVideo}>
-        <source src={videoSource} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <video autoPlay muted loop playsInline className={styles.backgroundVideo}>
+  <source src={videoSource} type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
     </motion.div>
   );
 }
