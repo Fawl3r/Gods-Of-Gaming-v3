@@ -14,6 +14,7 @@ import {
 
 // Import your CSS for the background video
 import styles from '../styles/Home.module.css'; // Adjust the path as needed
+import { motion } from "framer-motion"; // Import motion from framer-motion
 
 export default function Buy() {
   const router = useRouter();
@@ -68,17 +69,57 @@ export default function Buy() {
     setCurrentPage(pageNumber);
   };
 
-  // Define the video source
-  const videoSource = "/f3.mp4"; // Provide the correct path to the video in the public folder
+  // Define the video source with the provided IPFS URL
+  const videoSource = "/f3.mp4";
 
   return (
-    <div className={styles.background}>
+    <motion.div // Wrap the entire component with motion.div
+      initial={{ opacity: 0, y: 20 }} // Initial animation state
+      animate={{ opacity: 1, y: 0 }} // Animation on component mount
+      transition={{ duration: 1 }} // Animation duration
+      className={styles.background}
+    >
       <Container maxWidth="lg">
-      <div className={styles.connectWalletButton}>
+        <div className={styles.connectWalletButton}>
           <ConnectWallet />
         </div>
-        <h1>Buy Warrior NFTs</h1>
-        <p>Browse which NFTs are available.</p>
+        <motion.h1 // Wrap the heading with motion.h1
+          initial={{ opacity: 0, y: -20 }} // Initial animation state
+          animate={{ opacity: 1, y: 0 }} // Animation on component mount
+          transition={{ duration: 0.5, delay: 0.5 }} // Animation duration and delay
+        >
+          Buy Warrior NFTs
+        </motion.h1>
+        
+        {/* Pagination Controls */}
+        <motion.div // Wrap the pagination controls with motion.div
+          initial={{ opacity: 0, x: -20 }} // Initial animation state
+          animate={{ opacity: 1, x: 0 }} // Animation on component mount
+          transition={{ duration: 0.5, delay: 0.7 }} // Animation duration and delay
+        >
+          <div>
+            <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+              First
+            </button>
+            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+            Prev
+          </button>
+          <span>Page {currentPage} of {totalPages}</span>
+          <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
+            Next
+          </button>
+          <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
+            Last
+          </button>
+          </div>
+        </motion.div>
+        <motion.p // Wrap the paragraph with motion.p
+          initial={{ opacity: 0, y: 20 }} // Initial animation state
+          animate={{ opacity: 1, y: 0 }} // Animation on component mount
+          transition={{ duration: 0.5, delay: 0.7 }} // Animation duration and delay
+        >
+          Browse which NFTs are available.
+        </motion.p>
         {error ? (
           <p>Error: {(error as Error).message}</p>
         ) : (
@@ -90,9 +131,15 @@ export default function Buy() {
         )}
         {/* Pagination Controls */}
         <div>
-          <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+          <motion.button // Wrap the button with motion.button
+            onClick={() => paginate(1)}
+            disabled={currentPage === 1}
+            initial={{ opacity: 0, x: -20 }} // Initial animation state
+            animate={{ opacity: 1, x: 0 }} // Animation on component mount
+            transition={{ duration: 0.5, delay: 0.9 }} // Animation duration and delay
+          >
             First
-          </button>
+          </motion.button>
           <button
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
@@ -121,6 +168,6 @@ export default function Buy() {
         <source src={videoSource} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-    </div>
+    </motion.div>
   );
 }

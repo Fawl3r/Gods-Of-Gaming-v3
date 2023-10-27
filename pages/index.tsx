@@ -1,11 +1,17 @@
-import type { NextPage } from "next";
+import { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import { motion } from "framer-motion"; // Import motion from framer-motion
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
+    <motion.div // Wrap the entire component with motion.div
+      initial={{ opacity: 0, y: 20 }} // Initial animation state
+      animate={{ opacity: 1, y: 0 }} // Animation on component mount
+      transition={{ duration: 1 }} // Animation duration
+      className={styles.container}
+    >
       <div className={styles.content}>
         <div className={styles.hero}>
           <div className={styles.heroBackground}>
@@ -38,14 +44,24 @@ const Home: NextPage = () => {
           </div>
           <div className={styles.heroBodyContainer}>
             <div className={styles.heroBody}>
-              <h1 className={styles.heroTitle}>
+              <motion.h1 // Wrap the heading with motion.h1
+                initial={{ opacity: 0, y: -20 }} // Initial animation state
+                animate={{ opacity: 1, y: 0 }} // Animation on component mount
+                transition={{ duration: 0.5, delay: 0.5 }} // Animation duration and delay
+                className={styles.heroTitle}
+              >
                 <span className={styles.heroTitleGradient}>
                   <i>Collect F3 Warriors!</i>
                 </span>
                 <br />
                 Gaming Redefined.
-              </h1>
-              <p className={styles.heroSubtitle}>
+              </motion.h1>
+              <motion.p // Wrap the paragraph with motion.p
+                initial={{ opacity: 0, y: 20 }} // Initial animation state
+                animate={{ opacity: 1, y: 0 }} // Animation on component mount
+                transition={{ duration: 0.5, delay: 1 }} // Animation duration and delay
+                className={styles.heroSubtitle}
+              >
                 <Link
                   className={styles.link}
                   href="https://godsofgaming.games"
@@ -54,7 +70,7 @@ const Home: NextPage = () => {
                   Gods Of Gaming
                 </Link>{" "}
                 Presents: <i>F3 Warriors—Where Deities and Heroes Collide!</i>.
-              </p>
+              </motion.p>
 
               <div className={styles.heroCtaContainer}>
                 <Link className={styles.heroCta} href="/buy">
@@ -72,7 +88,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

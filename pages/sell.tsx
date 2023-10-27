@@ -14,6 +14,7 @@ import tokenPageStyles from '../styles/Token.module.css';
 import { NFT as NFTType } from '@thirdweb-dev/sdk';
 import SaleInfo from '../components/SaleInfo/SaleInfo';
 import styles from '../styles/Home.module.css';
+import { motion } from 'framer-motion'; // Import motion from framer-motion
 
 export default function Sell() {
   const router = useRouter();
@@ -40,11 +41,16 @@ export default function Sell() {
     setCurrentPage(pageNumber);
   };
 
-  // Define the video source
-  const videoSource = "/f3.mp4"; // Provide the correct path to the video in the public folder
+  // Define the video source with the provided IPFS URL
+  const videoSource = "/f3.mp4";
 
   return (
-    <div className={styles.background}>
+    <motion.div // Wrap the entire component with motion.div
+      initial={{ opacity: 0, y: 20 }} // Initial animation state
+      animate={{ opacity: 1, y: 0 }} // Animation on component mount
+      transition={{ duration: 1 }} // Animation duration
+      className={styles.background}
+    >
       {/* Video Background */}
       <video autoPlay loop muted className={styles.backgroundVideo}>
         <source src={videoSource} type="video/mp4" />
@@ -55,13 +61,24 @@ export default function Sell() {
         <div className={styles.connectWalletButton}>
           <ConnectWallet />
         </div>
-        <h1>Sell Warrior NFTs</h1>
+        <motion.h1 // Wrap the heading with motion.h1
+          initial={{ opacity: 0, y: -20 }} // Initial animation state
+          animate={{ opacity: 1, y: 0 }} // Animation on component mount
+          transition={{ duration: 0.5, delay: 0.5 }} // Animation duration and delay
+        >
+          Sell Warrior NFTs
+        </motion.h1>
         {/* Pagination Controls */}
-        <div>
-          <button onClick={() => paginate(1)} disabled={currentPage === 1}>
-            First
-          </button>
-          <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+        <motion.div // Wrap the pagination controls with motion.div
+          initial={{ opacity: 0, x: -20 }} // Initial animation state
+          animate={{ opacity: 1, x: 0 }} // Animation on component mount
+          transition={{ duration: 0.5, delay: 0.7 }} // Animation duration and delay
+        >
+          <div>
+            <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+              First
+            </button>
+            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
             Prev
           </button>
           <span>Page {currentPage} of {totalPages}</span>
@@ -71,11 +88,18 @@ export default function Sell() {
           <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
             Last
           </button>
-        </div>
+          </div>
+        </motion.div>
         
         {!selectedNft ? (
           <>
-            <p>Select which NFT you&rsquo;d like to sell below.</p>
+            <motion.p // Wrap the paragraph with motion.p
+              initial={{ opacity: 0, y: 20 }} // Initial animation state
+              animate={{ opacity: 1, y: 0 }} // Animation on component mount
+              transition={{ duration: 0.5, delay: 0.9 }} // Animation duration and delay
+            >
+              Select which NFT you&rsquo;d like to sell below.
+            </motion.p>
             <NFTGrid
               data={currentNfts}
               isLoading={isLoading}
@@ -123,11 +147,16 @@ export default function Sell() {
         )}
 
         {/* Pagination Controls */}
-        <div>
-          <button onClick={() => paginate(1)} disabled={currentPage === 1}>
-            First
-          </button>
-          <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+        <motion.div // Wrap the pagination controls with motion.div
+          initial={{ opacity: 0, x: -20 }} // Initial animation state
+          animate={{ opacity: 1, x: 0 }} // Animation on component mount
+          transition={{ duration: 0.5, delay: 1.1 }} // Animation duration and delay
+        >
+          <div>
+            <button onClick={() => paginate(1)} disabled={currentPage === 1}>
+              First
+            </button>
+            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
             Prev
           </button>
           <span>Page {currentPage} of {totalPages}</span>
@@ -137,8 +166,9 @@ export default function Sell() {
           <button onClick={() => paginate(totalPages)} disabled={currentPage === totalPages}>
             Last
           </button>
-        </div>
+          </div>
+        </motion.div>
       </Container>
-    </div>
+    </motion.div>
   );
 }
